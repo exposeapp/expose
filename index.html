@@ -23,8 +23,16 @@
   }
   .wrap { max-width: 900px; margin: 0 auto; padding: 0 24px; }
   header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: rgba(15, 17, 23, .88);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+  }
+  .header-inner {
     display: flex; align-items: center; justify-content: space-between;
-    padding: 18px 0;
+    padding: 16px 24px;
   }
   .logo { font-size: 22px; font-weight: 800; }
   .logo span { color: var(--violet); }
@@ -77,15 +85,17 @@
 </style>
 </head>
 <body>
-  <div class="wrap">
-    <header>
+  <header>
+    <div class="wrap header-inner">
       <div class="logo">Exposé<span>.</span></div>
       <nav>
         <a href="#download">تحميل</a>
         <a href="#features">المزايا</a>
         <a href="https://wa.me/213795549490" target="_blank" rel="noopener">تواصل معنا</a>
       </nav>
-    </header>
+    </div>
+  </header>
+  <div class="wrap">
 
     <section class="hero">
       <span class="badge">عرضك الجاهز في دقائق، ليس ساعات</span>
