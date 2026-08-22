@@ -70,6 +70,9 @@
   }
   .dl-btn:hover { filter: brightness(1.1); }
   .dl-meta { margin-top: 14px; font-size: 13px; color: var(--muted); }
+  .dl-alt { margin-top: 10px; font-size: 15px; color: var(--muted); }
+  .dl-alt a { color: var(--violet-soft); text-decoration: none; font-weight: 700; }
+  .dl-alt a:hover { text-decoration: underline; }
   .features {
     display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px;
     padding: 50px 0 20px;
@@ -87,7 +90,7 @@
 <body>
   <header>
     <div class="wrap header-inner">
-      <div class="logo">Exposé<span>.</span></div>
+      <div class="logo"><a href="">Exposé</a><span>.</span></div>
       <nav>
         <a href="#download">تحميل</a>
         <a href="#features">المزايا</a>
@@ -106,17 +109,19 @@
       </p>
       <div class="cta">
         <a class="btn btn-primary" href="#download">تحميل التطبيق</a>
+        <a class="btn btn-ghost" href="https://node.tail6d293c.ts.net" target="_blank" rel="noopener">متابعة عبر المتصفح ↗</a>
       </div>
     </section>
 
     <section class="download" id="download">
       <div class="dl-box">
         <h2>حمّل Exposé الآن</h2>
-        <p>تطبيق سطح مكتب يعمل على Windows بدون اتصال بالإنترنت للتوليد، مع حفظ عروضك على جهازك.</p>
+        <p>تطبيق سطح مكتب لـ Windows متصل بالسيرفر السحابي: عروضك محفوظة بأمان وتتزامن معك على كل أجهزتك، والتحديثات تصل تلقائياً.</p>
         <a class="dl-btn" href="https://github.com/exposeapp/expose/releases/latest/download/Expose-win32-x64.zip" download>
           ⬇ تحميل Exposé لنظام Windows
         </a>
         <p class="dl-meta">نسخة Windows 64-bit · ملف مضغوط ZIP · بعد التحميل فك الضغط وشغّل Exposé.exe</p>
+        <p class="dl-alt">لا تريد تحميل شيء؟ <a href="https://node.tail6d293c.ts.net" target="_blank" rel="noopener">تابع مباشرة عبر المتصفح ↗</a></p>
       </div>
     </section>
 
@@ -137,9 +142,14 @@
         <p>أنشئ عروضك بالعربية والفرنسية والانجليزية والإسبانية والألمانية.</p>
       </div>
       <div class="card">
-        <div class="icon">💾</div>
-        <h3>بياناتك معك</h3>
-        <p>تطبيق سطح مكتب يعمل محلياً ويحفظ عروضك على جهازك.</p>
+        <div class="icon">☁️</div>
+        <h3>مزامنة سحابية</h3>
+        <p>عروضك محفوظة على السيرفر بأمان — افتح حسابك من أي جهاز وتجد كل شيء في مكانه.</p>
+      </div>
+      <div class="card">
+        <div class="icon">🔄</div>
+        <h3>تحديث تلقائي</h3>
+        <p>كل المزايا الجديدة تصل إليك فوراً دون إعادة تحميل أو تثبيت.</p>
       </div>
       <div class="card">
         <div class="icon">📤</div>
