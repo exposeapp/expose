@@ -65,7 +65,7 @@
     display: grid; grid-template-columns: 1.05fr .95fr;
     gap: 44px; align-items: center;
   }
-  .hero-inner > * { opacity: 0; animation: rise .7s ease forwards; }
+  .hero-inner > * { animation: rise .7s ease both; }
   .hero-inner > *:nth-child(2) { animation-delay: .08s; }
   .hero-inner > *:nth-child(3) { animation-delay: .16s; }
   .hero-inner > *:nth-child(4) { animation-delay: .24s; }
@@ -90,7 +90,7 @@
   .hero-note { margin-top: 15px; font-size: 13.5px; color: var(--muted); font-weight: 600; }
 
   /* نموذج التطبيق في الواجهة */
-  .mockup { position: relative; animation: rise .8s ease forwards; opacity: 0; animation-delay: .2s; }
+  .mockup { position: relative; animation: rise .8s ease both; animation-delay: .2s; }
   .mock-float { animation: bob 6s ease-in-out infinite alternate; }
   @keyframes bob { from { transform: translateY(0); } to { transform: translateY(-9px); } }
   .mock-window {
