@@ -56,8 +56,56 @@
   .logo { font-size: 21px; font-weight: 900; letter-spacing: -.2px; }
   .logo a { color: var(--ink); text-decoration: none; }
   .logo span { color: var(--blue); }
-  nav a { color: var(--muted); text-decoration: none; margin-inline-start: 20px; font-size: 14px; font-weight: 600; transition: color .15s; }
-  nav a:hover { color: var(--ink); }
+  /* روابط النافبار */
+  .nav-links { display: flex; align-items: center; gap: 4px; }
+  .nav-links a {
+    color: var(--ink); text-decoration: none;
+    font-size: 14.5px; font-weight: 700;
+    padding: 8px 16px; border-radius: 999px;
+    transition: color .18s ease, background-color .18s ease, box-shadow .18s ease, transform .18s ease;
+  }
+  .nav-links a:hover {
+    color: var(--blue);
+    background: var(--surface);
+    box-shadow: 0 4px 14px -6px rgba(44, 102, 224, .35), inset 0 0 0 1px var(--sky-line);
+    transform: translateY(-1px);
+  }
+  .nav-links a:active { transform: translateY(0); }
+  .nav-links a.wa:hover {
+    color: #14853f; background: #e9f9ef;
+    box-shadow: 0 4px 14px -6px rgba(37, 211, 102, .45), inset 0 0 0 1px #bfe8cd;
+  }
+
+  /* زر القائمة + قائمة الهاتف */
+  .menu-btn {
+    display: none; width: 42px; height: 42px;
+    align-items: center; justify-content: center;
+    background: var(--surface); color: var(--ink);
+    border: 1px solid var(--sky-line); border-radius: 12px;
+    cursor: pointer; transition: border-color .15s, color .15s;
+  }
+  .menu-btn:hover { border-color: var(--blue); color: var(--blue); }
+  .menu-btn .ic-x { display: none; }
+  .menu-btn.x .ic-burger { display: none; }
+  .menu-btn.x .ic-x { display: block; }
+  .mobile-menu {
+    display: none; overflow: hidden;
+    border-bottom: 1px solid var(--border);
+    background: rgba(255, 255, 255, .96);
+    backdrop-filter: blur(12px);
+  }
+  .mobile-menu.open { display: block; animation: drop .22s ease both; }
+  @keyframes drop { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: none; } }
+  .mobile-menu a {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 24px; text-decoration: none;
+    color: var(--ink); font-size: 15px; font-weight: 800;
+    border-top: 1px solid var(--border);
+    transition: background .15s, color .15s, padding-inline-start .15s;
+  }
+  .mobile-menu a span.arrow { color: var(--sky-line); font-weight: 400; transition: color .15s; }
+  .mobile-menu a:hover, .mobile-menu a:active { background: var(--sky); color: var(--blue); padding-inline-start: 30px; }
+  .mobile-menu a:hover span.arrow, .mobile-menu a:active span.arrow { color: var(--blue); }
 
   /* البداية */
   .hero { padding: 72px 0 46px; }
@@ -202,13 +250,14 @@
   @media (max-width: 780px) {
     .steps-grid { grid-template-columns: 1fr; }
     .dl-boxes { grid-template-columns: 1fr; }
-    nav a { margin-inline-start: 12px; font-size: 13px; }
     .hero { padding-top: 48px; }
     .hero-grid { grid-template-columns: 1fr; gap: 40px; }
     .hero-inner { text-align: center; }
     .sub, .cta, .hero-note { margin-inline: auto; }
     .cta { justify-content: center; }
     .mockup { max-width: 460px; margin: 0 auto; }
+    .nav-links { display: none; }
+    .menu-btn { display: inline-flex; }
   }
 </style>
 </head>
@@ -222,11 +271,21 @@
   <header>
     <div class="header-inner">
       <div class="logo"><a href="">Exposé<span>.</span></a></div>
-      <nav>
+      <nav class="nav-links" aria-label="التنقل الرئيسي">
         <a href="#how">كيف يعمل</a>
         <a href="#download">تحميل</a>
-        <a href="https://wa.me/213795549490" target="_blank" rel="noopener">تواصل معنا</a>
+        <a class="wa" href="https://wa.me/213795549490" target="_blank" rel="noopener">تواصل معنا</a>
       </nav>
+      <button class="menu-btn" id="menuBtn" aria-label="فتح القائمة" aria-expanded="false">
+        <svg class="ic-burger" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+        <svg class="ic-x" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="#how">كيف يعمل<span class="arrow">←</span></a>
+      <a href="#download">تحميل التطبيق<span class="arrow">←</span></a>
+      <a href="https://node.tail6d293c.ts.net" target="_blank" rel="noopener">جرّبه في المتصفح<span class="arrow">↗</span></a>
+      <a href="https://wa.me/213795549490" target="_blank" rel="noopener">تواصل معنا (واتساب)<span class="arrow">↗</span></a>
     </div>
   </header>
 
@@ -362,5 +421,26 @@
       © 2026 Exposé — عروض ذكية تقدّم فكرتك بأفضل صورة · <a href="https://wa.me/213795549490" target="_blank" rel="noopener">راسلنا واتساب</a>
     </footer>
   </div>
+  <script>
+    (function () {
+      var btn = document.getElementById("menuBtn");
+      var menu = document.getElementById("mobileMenu");
+      function close() {
+        menu.classList.remove("open");
+        btn.classList.remove("x");
+        btn.setAttribute("aria-expanded", "false");
+        btn.setAttribute("aria-label", "فتح القائمة");
+      }
+      btn.addEventListener("click", function () {
+        var open = menu.classList.toggle("open");
+        btn.classList.toggle("x", open);
+        btn.setAttribute("aria-expanded", open ? "true" : "false");
+        btn.setAttribute("aria-label", open ? "إغلاق القائمة" : "فتح القائمة");
+      });
+      menu.querySelectorAll("a").forEach(function (a) {
+        a.addEventListener("click", close);
+      });
+    })();
+  </script>
 </body>
 </html>
