@@ -3,163 +3,274 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Exposé — عروض احترافية بالذكاء الاصطناعي</title>
+<title>Exposé — عرضك جاهز في دقائق</title>
 <style>
   :root {
-    --bg: #0f1117;
-    --card: #171a23;
-    --border: #262b3a;
-    --text: #e7e9f0;
-    --muted: #9aa3b5;
-    --violet: #8b5cf6;
-    --violet-soft: #a78bfa;
+    --bg: #f2f7fd;
+    --surface: #ffffff;
+    --border: #dce7f4;
+    --ink: #182742;
+    --muted: #586a84;
+    --blue: #2c66e0;
+    --blue-deep: #1f52bd;
+    --sky: #e6effc;
+    --sky-line: #cdddf2;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
   body {
     font-family: "Segoe UI", Tahoma, Arial, sans-serif;
     background: var(--bg);
-    color: var(--text);
-    line-height: 1.7;
+    color: var(--ink);
+    line-height: 1.75;
+    overflow-x: hidden;
   }
-  .wrap { max-width: 900px; margin: 0 auto; padding: 0 24px; }
+
+  /* خلفية متحركة خفيفة */
+  .bg-blobs { position: fixed; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; }
+  .blob { position: absolute; border-radius: 50%; filter: blur(70px); animation: drift 30s ease-in-out infinite alternate; }
+  .blob.b1 { width: 560px; height: 560px; background: #cfe1fa; top: -180px; inset-inline-start: -140px; opacity: .8; }
+  .blob.b2 { width: 440px; height: 440px; background: #d9e9fd; bottom: -140px; inset-inline-end: -100px; animation-duration: 36s; animation-delay: -10s; }
+  .blob.b3 { width: 320px; height: 320px; background: #ece7fc; top: 42%; inset-inline-start: 55%; animation-duration: 42s; animation-delay: -18s; opacity: .45; }
+  @keyframes drift {
+    from { transform: translate(0, 0) scale(1); }
+    to   { transform: translate(-46px, 34px) scale(1.07); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .blob { animation: none; }
+    .hero-inner > * { animation: none !important; }
+  }
+
+  .wrap { max-width: 880px; margin: 0 auto; padding: 0 22px; }
+
   header {
-    position: sticky;
-    top: 0;
-    z-index: 10;
-    background: rgba(15, 17, 23, .88);
-    backdrop-filter: blur(10px);
+    position: sticky; top: 0; z-index: 10;
+    background: rgba(242, 247, 253, .82);
+    backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--border);
   }
-  .header-inner {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 16px 24px;
+  .header-inner { display: flex; align-items: center; justify-content: space-between; padding: 14px 22px; max-width: 880px; margin: 0 auto; }
+  .logo { font-size: 21px; font-weight: 800; letter-spacing: -.2px; }
+  .logo a { color: var(--ink); text-decoration: none; }
+  .logo span { color: var(--blue); }
+  nav a { color: var(--muted); text-decoration: none; margin-inline-start: 20px; font-size: 14px; font-weight: 600; transition: color .15s; }
+  nav a:hover { color: var(--ink); }
+
+  /* البداية */
+  .hero { text-align: center; padding: 78px 0 46px; }
+  .hero-inner > * { opacity: 0; animation: rise .7s ease forwards; }
+  .hero-inner > *:nth-child(2) { animation-delay: .08s; }
+  .hero-inner > *:nth-child(3) { animation-delay: .16s; }
+  .hero-inner > *:nth-child(4) { animation-delay: .24s; }
+  @keyframes rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+  h1 { font-size: clamp(30px, 6vw, 44px); line-height: 1.35; font-weight: 800; letter-spacing: -.5px; }
+  h1 em { font-style: normal; color: var(--blue); position: relative; white-space: nowrap; }
+  h1 em::after {
+    content: ""; position: absolute; inset-inline: 2px; bottom: 2px; height: 10px;
+    background: var(--sky); z-index: -1; border-radius: 4px;
   }
-  .logo { font-size: 22px; font-weight: 800; }
-  .logo span { color: var(--violet); }
-  nav a { color: var(--muted); text-decoration: none; margin-inline-start: 18px; font-size: 14px; }
-  nav a:hover { color: var(--text); }
-  .hero { text-align: center; padding: 70px 0 40px; }
-  .badge {
-    display: inline-block; font-size: 13px; color: var(--violet-soft);
-    border: 1px solid var(--border); border-radius: 999px; padding: 6px 14px; margin-bottom: 22px;
-    background: rgba(139, 92, 246, .08);
-  }
-  h1 { font-size: 46px; line-height: 1.3; font-weight: 800; }
-  h1 span { color: var(--violet-soft); }
-  .sub { color: var(--muted); font-size: 18px; max-width: 620px; margin: 18px auto 0; }
-  .cta { margin-top: 32px; display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+  .sub { color: var(--muted); font-size: 17px; max-width: 560px; margin: 16px auto 0; }
+  .cta { margin-top: 30px; display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
   .btn {
-    display: inline-block; padding: 14px 30px; border-radius: 12px; font-size: 16px;
-    text-decoration: none; font-weight: 700;
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 13px 26px; border-radius: 12px; font-size: 15px;
+    text-decoration: none; font-weight: 700; transition: all .15s;
   }
-  .btn-primary { background: var(--violet); color: #fff; }
-  .btn-primary:hover { background: #7c4df0; }
-  .btn-ghost { border: 1px solid var(--border); color: var(--text); }
-  .btn-ghost:hover { border-color: var(--violet); }
-  .download { padding: 40px 0 10px; }
-  .dl-box {
-    background: var(--card); border: 1px solid var(--border); border-radius: 16px;
-    padding: 32px; text-align: center;
+  .btn-primary { background: var(--blue); color: #fff; box-shadow: 0 6px 16px -6px rgba(44, 102, 224, .45); }
+  .btn-primary:hover { background: var(--blue-deep); transform: translateY(-1px); }
+  .btn-outline { background: var(--surface); color: var(--ink); border: 1px solid var(--sky-line); }
+  .btn-outline:hover { border-color: var(--blue); color: var(--blue); }
+  .hero-note { margin-top: 16px; font-size: 13.5px; color: var(--muted); }
+
+  /* الخطوات */
+  .steps { padding: 34px 0 8px; }
+  .section-title { text-align: center; font-size: 24px; font-weight: 800; margin-bottom: 6px; }
+  .section-sub { text-align: center; color: var(--muted); font-size: 15px; margin-bottom: 30px; }
+  .steps-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .step {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 16px;
+    padding: 22px 20px;
   }
-  .dl-box h2 { font-size: 24px; margin-bottom: 8px; }
-  .dl-box p { color: var(--muted); font-size: 15px; max-width: 560px; margin: 0 auto 20px; }
+  .step-num {
+    width: 34px; height: 34px; border-radius: 10px; background: var(--sky); color: var(--blue);
+    display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 15px; margin-bottom: 12px;
+  }
+  .step h3 { font-size: 16px; margin-bottom: 4px; }
+  .step p { color: var(--muted); font-size: 14px; line-height: 1.7; }
+
+  /* المزايا */
+  .features { padding: 40px 0 10px; }
+  .feat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 14px; }
+  .feat { display: flex; gap: 12px; align-items: flex-start; }
+  .feat-icon {
+    flex: none; width: 38px; height: 38px; border-radius: 11px;
+    background: var(--sky); color: var(--blue);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .feat h3 { font-size: 15px; margin-bottom: 2px; }
+  .feat p { color: var(--muted); font-size: 13.5px; line-height: 1.65; }
+
+  /* التحميل */
+  .download { padding: 48px 0 20px; }
+  .dl-boxes { display: grid; grid-template-columns: 1.2fr 1fr; gap: 14px; }
+  .dl-card {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 18px;
+    padding: 28px 26px; display: flex; flex-direction: column;
+  }
+  .dl-card.main { border-color: var(--sky-line); box-shadow: 0 14px 34px -22px rgba(31, 82, 189, .35); }
+  .dl-tag {
+    align-self: flex-start; font-size: 12px; font-weight: 700; color: var(--blue);
+    background: var(--sky); border-radius: 999px; padding: 4px 12px; margin-bottom: 14px;
+  }
+  .dl-card h2 { font-size: 19px; margin-bottom: 6px; }
+  .dl-card > p { color: var(--muted); font-size: 14px; margin-bottom: 18px; }
   .dl-btn {
-    display: inline-block; padding: 16px 38px; border-radius: 12px; font-size: 17px;
-    text-decoration: none; font-weight: 800; background: linear-gradient(135deg, var(--violet), #a855f7);
-    color: #fff;
+    display: inline-block; text-align: center; padding: 13px 22px; border-radius: 12px;
+    font-size: 15px; font-weight: 800; text-decoration: none;
+    background: var(--blue); color: #fff; transition: background .15s;
   }
-  .dl-btn:hover { filter: brightness(1.1); }
-  .dl-meta { margin-top: 14px; font-size: 13px; color: var(--muted); }
-  .dl-alt { margin-top: 10px; font-size: 15px; color: var(--muted); }
-  .dl-alt a { color: var(--violet-soft); text-decoration: none; font-weight: 700; }
-  .dl-alt a:hover { text-decoration: underline; }
-  .features {
-    display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px;
-    padding: 50px 0 20px;
+  .dl-btn:hover { background: var(--blue-deep); }
+  .dl-btn.light {
+    background: var(--surface); color: var(--blue); border: 1.5px solid var(--blue);
   }
-  .card {
-    background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 24px;
+  .dl-btn.light:hover { background: var(--sky); }
+  .dl-meta { margin-top: 12px; font-size: 12.5px; color: var(--muted); }
+  dl.dl-facts { margin-top: auto; padding-top: 14px; border-top: 1px dashed var(--border); font-size: 13px; color: var(--muted); }
+  dl.dl-facts div { display: flex; justify-content: space-between; padding: 3px 0; }
+  dl.dl-facts dt { font-weight: 600; color: var(--ink); }
+  .browser-note { margin-top: 12px; font-size: 13.5px; color: var(--muted); text-align: center; }
+  .browser-note a { color: var(--blue); font-weight: 700; text-decoration: none; }
+  .browser-note a:hover { text-decoration: underline; }
+
+  footer { border-top: 1px solid var(--border); margin-top: 44px; padding: 26px 0 34px; text-align: center; color: var(--muted); font-size: 13.5px; }
+  footer a { color: var(--blue); text-decoration: none; font-weight: 600; }
+  footer a:hover { text-decoration: underline; }
+
+  @media (max-width: 720px) {
+    .steps-grid { grid-template-columns: 1fr; }
+    .dl-boxes { grid-template-columns: 1fr; }
+    nav a { margin-inline-start: 12px; font-size: 13px; }
+    .hero { padding-top: 56px; }
   }
-  .card .icon { font-size: 26px; margin-bottom: 12px; }
-  .card h3 { font-size: 17px; margin-bottom: 8px; }
-  .card p { color: var(--muted); font-size: 14px; }
-  footer { border-top: 1px solid var(--border); margin-top: 40px; padding: 26px 0; text-align: center; color: var(--muted); font-size: 14px; }
-  footer a { color: var(--violet-soft); text-decoration: none; }
 </style>
 </head>
 <body>
+  <div class="bg-blobs" aria-hidden="true">
+    <div class="blob b1"></div>
+    <div class="blob b2"></div>
+    <div class="blob b3"></div>
+  </div>
+
   <header>
-    <div class="wrap header-inner">
-      <div class="logo"><a href="">Exposé</a><span>.</span></div>
+    <div class="header-inner">
+      <div class="logo"><a href="">Exposé<span>.</span></a></div>
       <nav>
+        <a href="#how">كيف يعمل</a>
         <a href="#download">تحميل</a>
-        <a href="#features">المزايا</a>
         <a href="https://wa.me/213795549490" target="_blank" rel="noopener">تواصل معنا</a>
       </nav>
     </div>
   </header>
+
   <div class="wrap">
 
     <section class="hero">
-      <span class="badge">عرضك الجاهز في دقائق، ليس ساعات</span>
-      <h1>أنشئ <span>عروضاً احترافية</span> بالذكاء الاصطناعي</h1>
-      <p class="sub">
-        اكتب موضوع عرضك، ودع الذكاء الاصطناعي يبني لك عروضاً منظّمة وجذابة في ثوانٍ.
-        مع Exposé، تتحول أفكارك إلى شرائح جاهزة للعرض.
-      </p>
-      <div class="cta">
-        <a class="btn btn-primary" href="#download">تحميل التطبيق</a>
-        <a class="btn btn-ghost" href="https://node.tail6d293c.ts.net" target="_blank" rel="noopener">متابعة عبر المتصفح ↗</a>
+      <div class="hero-inner">
+        <h1>عرضك الجاهز في <em>دقائق</em>، ليس ساعات</h1>
+        <p class="sub">
+          اكتب موضوع عرضك، وExposé يبني لك شرائح مرتّبة بعناوين ونقاط وأمثلة،
+          جاهزة للإلقاء مباشرة. أنت تركّز في الفكرة، والتنسيق علينا.
+        </p>
+        <div class="cta">
+          <a class="btn btn-primary" href="#download">حمّل التطبيق</a>
+          <a class="btn btn-outline" href="https://node.tail6d293c.ts.net" target="_blank" rel="noopener">جرّبه في المتصفح ↗</a>
+        </div>
+        <p class="hero-note">التجربة مجانية · التسجيل يدقيقة واحدة · بدون بطاقة بنكية</p>
       </div>
     </section>
 
-    <section class="download" id="download">
-      <div class="dl-box">
-        <h2>حمّل Exposé الآن</h2>
-        <p>تطبيق سطح مكتب لـ Windows متصل بالسيرفر السحابي: عروضك محفوظة بأمان وتتزامن معك على كل أجهزتك، والتحديثات تصل تلقائياً.</p>
-        <a class="dl-btn" href="https://github.com/exposeapp/expose/releases/latest/download/Expose-win32-x64.zip" download>
-          ⬇ تحميل Exposé لنظام Windows
-        </a>
-        <p class="dl-meta">نسخة Windows 64-bit · ملف مضغوط ZIP · بعد التحميل فك الضغط وشغّل Exposé.exe</p>
-        <p class="dl-alt">لا تريد تحميل شيء؟ <a href="https://node.tail6d293c.ts.net" target="_blank" rel="noopener">تابع مباشرة عبر المتصفح ↗</a></p>
+    <section class="steps" id="how">
+      <h2 class="section-title">كيف يعمل؟</h2>
+      <p class="section-sub">ثلاث خطوات بينك وبين عرضك</p>
+      <div class="steps-grid">
+        <div class="step">
+          <div class="step-num">1</div>
+          <h3>اكتب موضوعك</h3>
+          <p>عنوان واحد يكفي. تختار المستوى الدراسي واللغة، ويمكنك إضافة تفاصيل إن أحببت.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <h3>استلم عرضك</h3>
+          <p>خلال ثوانٍ تحصل على شرائح كاملة: مقدمة، محاور مرتّبة، خاتمة، ونقاط للمناقشة.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <h3>عدّل وصدّر</h3>
+          <p>عدّل أي شريحة كما تريد، ثم صدّر العرض PDF أو Word وتقدّم بثقة.</p>
+        </div>
       </div>
     </section>
 
     <section class="features" id="features">
-      <div class="card">
-        <div class="icon">⚡</div>
-        <h3>توليد فوري</h3>
-        <p>أدخل الموضوع والمستوى واللغة، وستحصل على عرض متكامل خلال ثوانٍ.</p>
-      </div>
-      <div class="card">
-        <div class="icon">🎨</div>
-        <h3>تصاميم احترافية</h3>
-        <p>شرائح منسّقة وألوان متناسقة تعطي انطباعاً قوياً في اجتماعاتك.</p>
-      </div>
-      <div class="card">
-        <div class="icon">🌍</div>
-        <h3>لغات متعددة</h3>
-        <p>أنشئ عروضك بالعربية والفرنسية والانجليزية والإسبانية والألمانية.</p>
-      </div>
-      <div class="card">
-        <div class="icon">☁️</div>
-        <h3>مزامنة سحابية</h3>
-        <p>عروضك محفوظة على السيرفر بأمان — افتح حسابك من أي جهاز وتجد كل شيء في مكانه.</p>
-      </div>
-      <div class="card">
-        <div class="icon">🔄</div>
-        <h3>تحديث تلقائي</h3>
-        <p>كل المزايا الجديدة تصل إليك فوراً دون إعادة تحميل أو تثبيت.</p>
-      </div>
-      <div class="card">
-        <div class="icon">📤</div>
-        <h3>تصدير جاهز</h3>
-        <p>صدّر عرضك بسهولة لمشاركته مع فريقك أو عرضه أمام القسم.</p>
+      <h2 class="section-title">لماذا Exposé؟</h2>
+      <p class="section-sub">أدوات بسيطة تُنجز العمل الحقيقي</p>
+      <div class="feat-grid">
+        <div class="feat">
+          <div class="feat-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4.8 13.2h5.4L11 22l8.2-11.2h-5.4L13 2z"/></svg>
+          </div>
+          <div><h3>توليد فوري</h3><p>نتيجة كاملة خلال ثوانٍ، مبنية على موضوعك وليست قالباً جاهزاً.</p></div>
+        </div>
+        <div class="feat">
+          <div class="feat-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.7 2.6 4 5.6 4 9s-1.3 6.4-4 9c-2.7-2.6-4-5.6-4-9s1.3-6.4 4-9z"/></svg>
+          </div>
+          <div><h3>خمس لغات</h3><p>العربية والفرنسية والإنجليزية والإسبانية والألمانية.</p></div>
+        </div>
+        <div class="feat">
+          <div class="feat-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 19a4.5 4.5 0 0 0 .9-8.9A6 6 0 0 0 6.7 8.7 4.5 4.5 0 0 0 7.5 19h10z"/></svg>
+          </div>
+          <div><h3>حساب واحد</h3><p>عروضك محفوظة بأمان على السيرفر — افتح حسابك من أي جهاز وتجد كل شيء.</p></div>
+        </div>
+        <div class="feat">
+          <div class="feat-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V7l-4-4z"/><path d="M14 3v4h4M9 13h6M9 17h6"/></svg>
+          </div>
+          <div><h3>تصدير نظيف</h3><p>PDF وWord بتنسيق مرتّب، جاهزان للطباعة أو الإرسال لفريقك.</p></div>
+        </div>
       </div>
     </section>
 
+    <section class="download" id="download">
+      <h2 class="section-title">حمّله أو جرّبه فوراً</h2>
+      <p class="section-sub">طريقتان للاستخدام — اختر الأنسب لك</p>
+      <div class="dl-boxes">
+        <div class="dl-card main">
+          <span class="dl-tag">الأفضل لحاسوب Windows</span>
+          <h2>تطبيق سطح المكتب</h2>
+          <p>نافذة خاصة للتطبيق، أسرع وأنظف من المتصفح، مع تحديثات تلقائية.</p>
+          <a class="dl-btn" href="https://github.com/exposeapp/expose/releases/latest/download/Expose-win32-x64.zip" download>⬇ تحميل Exposé (ZIP)</a>
+          <p class="dl-meta">Windows 64-bit · بعد التحميل فك الضغط وشغّل ملف Exposé.exe</p>
+          <dl class="dl-facts">
+            <div><dt>الحجم</dt><dd>≈ 140 ميغا</dd></div>
+            <div><dt>الإصدار</dt><dd>v1.1.0</dd></div>
+            <div><dt>التحديثات</dt><dd>تلقائية</dd></div>
+          </dl>
+        </div>
+        <div class="dl-card">
+          <span class="dl-tag">بدون أي تحميل</span>
+          <h2>المتصفح مباشرة</h2>
+          <p>نفس الحساب ونفس عروضك — يعمل من الهاتف والحاسوب.</p>
+          <a class="dl-btn light" href="https://node.tail6d293c.ts.net" target="_blank" rel="noopener">افتح Exposé الآن ↗</a>
+          <p class="dl-meta">يعمل على Chrome وEdge وFirefox وسفاري</p>
+        </div>
+      </div>
+      <p class="browser-note">تحتاج حساباً مجانياً للبدء — أنشئه خلال دقيقة من داخل التطبيق.</p>
+    </section>
+
     <footer>
-      Exposé — عروض ذكية تقدّم فكرتك بأفضل صورة · <a href="https://wa.me/213795549490" target="_blank" rel="noopener">تواصل معنا</a>
+      © 2026 Exposé — عروض ذكية تقدّم فكرتك بأفضل صورة · <a href="https://wa.me/213795549490" target="_blank" rel="noopener">راسلنا واتساب</a>
     </footer>
   </div>
 </body>
